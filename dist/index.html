@@ -241,7 +241,7 @@
     </nav>
 
     <div class="hero">
-        < img src="img/avatar.jpg" alt="头像" class="avatar">
+        < img src="dist/img/avatar.jpg" alt="头像" class="avatar">
         <div class="intro-card">
             <h2>悉尼|境界</h2>
             <p>专注风光 / 街拍 / 人像纪实摄影<br>
@@ -285,14 +285,19 @@
     <script>
         // ========== 在这里填写你所有图片文件名（只填文件名，不用改其他代码）==========
         const imgList = [
-            "p1.jpg",
-            "p2.jpg",
-            "p3.jpg",
-            "p4.jpg",
-            "p5.jpg",
-            "p6.jpg",
-            "p7.jpg",
-            "p8.jpg"
+            "p0001.jpg",
+            "p0002.jpg",
+            "p0003.jpg",
+            "p0004.jpg",
+            "p0005.jpg",
+            "p0006.jpg",
+            "p0007.jpg",
+            "p0008.jpg",
+            "p0009.jpg",
+            "p0010.jpg",
+            "p0011.jpg",
+            "p0012.jpg",
+
             // 以后加图，只在这一行往下复制加一行： "p9.jpg",
         ];
 
@@ -305,6 +310,10 @@
             "山林雾气纪实",
             "建筑极简美学",
             "晚风与旷野",
+            "极简美学",
+            "极简美学",
+            "极简美学",
+            "极简美学",
             "夜色街景"
         ];
 
@@ -314,7 +323,7 @@
             const item = document.createElement('div');
             item.className = "work-item";
             item.innerHTML = `
-                < img src="img/${src}" alt="摄影作品">
+                < img src="dist/img/${src}" alt="摄影作品">
                 <div class="work-desc">${descList[index] || "摄影作品"}</div>
             `;
             workBox.appendChild(item);
