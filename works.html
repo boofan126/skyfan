@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人摄影作品集 | 作品展示</title>
+    <title>摄影作品 | Works</title>
     <style>
         :root {
             --bg-main: #0d0d0f;
@@ -38,7 +38,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.2rem 5%;
+            padding: 1rem 5%;
             background: var(--bg-nav);
             backdrop-filter: blur(10px);
             display: flex;
@@ -50,22 +50,29 @@
         }
 
         nav.scroll {
-            padding: 0.8rem 5%;
+            padding: 0.7rem 5%;
             background: rgba(16, 16, 20, 0.95);
         }
 
         .logo {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             letter-spacing: 2px;
             color: #ffffff;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         .nav-menu a {
-            margin-left: 2rem;
+            margin-left: 1rem;
             text-decoration: none;
             color: #b8b8b8;
             font-weight: 400;
+            font-size: 0.85rem;
             transition: var(--transition-base);
             position: relative;
         }
@@ -94,40 +101,57 @@
             width: 100%;
         }
 
+        /* 语言切换按钮 */
+        #langBtn {
+            padding: 4px 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            color: var(--color-text);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        #langBtn:hover {
+            background: var(--color-accent);
+            color: #000;
+        }
+
         /* 作品头部 */
         .works-header {
             max-width: 1200px;
-            margin: 40px auto 30px;
+            margin: 20px auto 15px;
             padding: 0 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 10px;
         }
 
         .works-header h2 {
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             font-weight: 500;
             color: #fff;
         }
 
         .works-header .stats {
             color: var(--color-subtext);
-            font-size: 0.9rem;
+            font-size: 0.75rem;
         }
 
-        .works-header .sort {
+        .sort {
             display: flex;
-            gap: 10px;
+            gap: 6px;
         }
 
         .sort-btn {
-            padding: 6px 16px;
+            padding: 4px 10px;
             background: var(--bg-card);
             border: 1px solid var(--color-border);
-            border-radius: 6px;
+            border-radius: 4px;
             color: var(--color-subtext);
+            font-size: 0.75rem;
             cursor: pointer;
             transition: var(--transition-base);
         }
@@ -139,24 +163,25 @@
             border-color: var(--color-accent);
         }
 
-        /* 过滤栏 */
+        /* 过滤栏 - 紧凑版 */
         .filter {
             max-width: 1200px;
-            margin: 0 auto 40px;
+            margin: 0 auto 20px;
             padding: 0 5%;
             display: flex;
-            gap: 15px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .filter-item {
-            padding: 8px 20px;
+            padding: 5px 12px;
             background: var(--bg-card);
-            border-radius: 30px;
+            border-radius: 20px;
             cursor: pointer;
             transition: var(--transition-base);
             border: 1px solid var(--color-border);
             color: #ccc;
+            font-size: 0.75rem;
         }
 
         .filter-item.active,
@@ -166,18 +191,31 @@
             border-color: var(--color-accent);
         }
 
-        /* 作品容器 */
+        /* 作品容器 - 手机两列 */
         .work-container {
             max-width: 1200px;
-            margin: 0 auto 80px;
+            margin: 0 auto 40px;
             padding: 0 5%;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        @media (min-width: 600px) {
+            .work-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .work-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
 
         .work-item {
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
             background: var(--bg-card);
             box-shadow: var(--shadow-card);
@@ -188,32 +226,25 @@
         }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
         }
 
         .work-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+            transform: translateY(-3px);
         }
 
         .work-item img {
             width: 100%;
-            height: 360px;
+            height: 180px;
             object-fit: cover;
             display: block;
             transition: var(--transition-base);
             loading: lazy;
         }
 
-        .work-item:hover img {
-            transform: scale(1.03);
-        }
-
         .work-desc {
-            padding: 16px;
-            font-size: 0.9rem;
+            padding: 8px;
+            font-size: 0.7rem;
             color: var(--color-subtext);
             display: flex;
             justify-content: space-between;
@@ -221,9 +252,9 @@
         }
 
         .work-desc .category-tag {
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
+            font-size: 0.65rem;
+            padding: 1px 5px;
+            border-radius: 3px;
             background: #25252b;
             color: var(--color-accent);
         }
@@ -232,17 +263,17 @@
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 60px 20px;
+            padding: 30px 20px;
             color: var(--color-subtext);
-            font-size: 1rem;
+            font-size: 0.8rem;
         }
 
         /* 页脚 */
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 20px;
             color: #666;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             background: var(--bg-footer);
         }
 
@@ -274,26 +305,22 @@
 
         .img-modal .close {
             position: absolute;
-            top: 30px;
-            right: 40px;
+            top: 20px;
+            right: 20px;
             color: #fff;
-            font-size: 36px;
+            font-size: 28px;
             cursor: pointer;
             opacity: 0.7;
             transition: var(--transition-base);
         }
 
-        .img-modal .close:hover {
-            opacity: 1;
-        }
-
         /* 回到顶部按钮 */
         .back-to-top {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 48px;
-            height: 48px;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
             background: var(--color-accent);
             color: #000;
             border-radius: 50%;
@@ -305,73 +332,49 @@
             pointer-events: none;
             transition: var(--transition-base);
             z-index: 90;
-            font-size: 20px;
+            font-size: 16px;
         }
 
         .back-to-top.active {
             opacity: 1;
             pointer-events: all;
         }
-
-        /* 响应式 */
-        @media (max-width:768px) {
-            .nav-menu a {
-                margin-left: 1rem;
-                font-size: 0.9rem;
-            }
-            .works-header {
-                justify-content: center;
-                text-align: center;
-            }
-            .work-item img {
-                height: 280px;
-            }
-            .back-to-top {
-                width: 40px;
-                height: 40px;
-                bottom: 20px;
-                right: 20px;
-            }
-            .img-modal .close {
-                top: 20px;
-                right: 20px;
-                font-size: 28px;
-            }
-        }
     </style>
 </head>
 <body>
     <!-- 导航栏 -->
     <nav id="mainNav">
-        <div class="logo">LENS | 摄影</div>
-        <div class="nav-menu">
-            <a href="index.html">首页</a>
-            <a href="works.html" class="active">作品</a>
-            <a href="about.html">关于我</a>
-            <a href="community.html">摄友交流</a>
+        <div class="logo" data-zh="LENS | 摄影" data-en="LENS | Photography">LENS | 摄影</div>
+        <div class="nav-right">
+            <div class="nav-menu">
+                <a href="index.html" data-zh="首页" data-en="Home">首页</a>
+                <a href="works.html" class="active" data-zh="作品" data-en="Works">作品</a>
+                <a href="community.html" data-zh="摄友交流" data-en="Community">摄友交流</a>
+            </div>
+            <button id="langBtn">EN</button>
         </div>
     </nav>
 
     <!-- 作品头部 -->
     <div class="works-header">
         <div>
-            <h2>摄影作品合集</h2>
+            <h2 data-zh="摄影作品合集" data-en="Photography Works">摄影作品合集</h2>
             <div class="stats" id="workStats">共 12 件作品</div>
         </div>
         <div class="sort">
-            <div class="sort-btn active" data-sort="default">默认排序</div>
-            <div class="sort-btn" data-sort="asc">名称升序</div>
-            <div class="sort-btn" data-sort="desc">名称降序</div>
+            <div class="sort-btn active" data-sort="default" data-zh="默认" data-en="Default">默认</div>
+            <div class="sort-btn" data-sort="asc" data-zh="升序" data-en="A-Z">升序</div>
+            <div class="sort-btn" data-sort="desc" data-zh="降序" data-en="Z-A">降序</div>
         </div>
     </div>
 
     <!-- 过滤栏 -->
     <div class="filter" id="filterBox">
-        <div class="filter-item active" data-filter="all">全部作品</div>
-        <div class="filter-item" data-filter="风光">风光摄影</div>
-        <div class="filter-item" data-filter="人像">人像写真</div>
-        <div class="filter-item" data-filter="街拍">城市街拍</div>
-        <div class="filter-item" data-filter="纪实">新闻纪实</div>
+        <div class="filter-item active" data-filter="all" data-zh="全部" data-en="All">全部</div>
+        <div class="filter-item" data-filter="风光" data-zh="风光" data-en="Scenery">风光</div>
+        <div class="filter-item" data-filter="人像" data-zh="人像" data-en="Portrait">人像</div>
+        <div class="filter-item" data-filter="街拍" data-zh="街拍" data-en="Street">街拍</div>
+        <div class="filter-item" data-filter="纪实" data-zh="纪实" data-en="Documentary">纪实</div>
     </div>
 
     <!-- 作品容器 -->
@@ -379,72 +382,70 @@
 
     <!-- 页脚 -->
     <footer>
-        <p>© 2026 Sky Fan | 以光影为诗，记录世间美好</p>
+        <p data-zh="© 2026 Sky Fan | 以光影为诗，记录世间美好" data-en="© 2026 Sky Fan | Capturing Beauty with Light">© 2026 Sky Fan | 以光影为诗，记录世间美好</p>
     </footer>
 
     <!-- 图片预览模态框 -->
     <div class="img-modal" id="imgModal">
         <span class="close" id="closeBtn">×</span>
-        <img src="" alt="大图预览" id="modalImg">
+        <img src="" alt="Preview" id="modalImg">
     </div>
 
     <!-- 回到顶部按钮 -->
     <div class="back-to-top" id="backToTop">↑</div>
 
     <script>
-        // 作品完整数据
+        // 作品数据
         const workData = [
-            { src: "p0001.jpg", desc: "山野日落 | 自然光影", category: "风光" },
-            { src: "p0002.jpg", desc: "城市暮色 | 街头纪实", category: "街拍" },
-            { src: "p0003.jpg", desc: "人像自然光创作", category: "人像" },
-            { src: "p0004.jpg", desc: "海边极简风光", category: "风光" },
-            { src: "p0005.jpg", desc: "山林雾气纪实", category: "纪实" },
-            { src: "p0006.jpg", desc: "建筑极简美学", category: "街拍" },
-            { src: "p0007.jpg", desc: "晚风与旷野", category: "风光" },
-            { src: "p0008.jpg", desc: "极简美学", category: "人像" },
-            { src: "p0009.jpg", desc: "极简美学", category: "风光" },
-            { src: "p0010.jpg", desc: "极简美学", category: "街拍" },
-            { src: "p0011.jpg", desc: "极简美学", category: "纪实" },
-            { src: "p0012.jpg", desc: "夜色街景", category: "街拍" }
+            { src: "p0001.jpg", desc: "山野日落 | 自然光影", descEn: "Mountain Sunset | Natural Light", category: "风光" },
+            { src: "p0002.jpg", desc: "城市暮色 | 街头纪实", descEn: "Urban Twilight | Street Documentary", category: "街拍" },
+            { src: "p0003.jpg", desc: "人像自然光创作", descEn: "Portrait with Natural Light", category: "人像" },
+            { src: "p0004.jpg", desc: "海边极简风光", descEn: "Minimalist Seaside Scenery", category: "风光" },
+            { src: "p0005.jpg", desc: "山林雾气纪实", descEn: "Mountain Fog Documentary", category: "纪实" },
+            { src: "p0006.jpg", desc: "建筑极简美学", descEn: "Minimalist Architecture", category: "街拍" },
+            { src: "p0007.jpg", desc: "晚风与旷野", descEn: "Night Breeze and Wilderness", category: "风光" },
+            { src: "p0008.jpg", desc: "极简美学", descEn: "Minimalist Aesthetics", category: "人像" },
+            { src: "p0009.jpg", desc: "极简美学", descEn: "Minimalist Aesthetics", category: "风光" },
+            { src: "p0010.jpg", desc: "极简美学", descEn: "Minimalist Aesthetics", category: "街拍" },
+            { src: "p0011.jpg", desc: "极简美学", descEn: "Minimalist Aesthetics", category: "纪实" },
+            { src: "p0012.jpg", desc: "夜色街景", descEn: "Night Street View", category: "街拍" }
         ];
 
-        // 渲染作品列表
         const workBox = document.getElementById('workBox');
         const workStats = document.getElementById('workStats');
         let currentFilter = 'all';
         let currentSort = 'default';
+        let isEnglish = false;
 
+        // 渲染作品
         function renderWorks() {
-            // 过滤
             let filteredWorks = currentFilter === 'all' 
                 ? [...workData] 
                 : workData.filter(item => item.category === currentFilter);
             
-            // 排序
             if (currentSort === 'asc') {
                 filteredWorks.sort((a, b) => a.desc.localeCompare(b.desc));
             } else if (currentSort === 'desc') {
                 filteredWorks.sort((a, b) => b.desc.localeCompare(a.desc));
             }
 
-            // 更新统计
-            workStats.textContent = `共 ${filteredWorks.length} 件作品`;
-
-            // 渲染
+            workStats.textContent = isEnglish ? `${filteredWorks.length} works` : `共 ${filteredWorks.length} 件作品`;
             workBox.innerHTML = '';
+
             if (filteredWorks.length === 0) {
-                workBox.innerHTML = '<div class="empty-state">暂无该分类的作品</div>';
+                workBox.innerHTML = `<div class="empty-state">${isEnglish ? 'No works' : '暂无该分类的作品'}</div>`;
                 return;
             }
 
             filteredWorks.forEach((item, index) => {
                 const workItem = document.createElement('div');
                 workItem.className = "work-item";
-                workItem.style.animationDelay = `${index * 0.1}s`;
+                workItem.style.animationDelay = `${index * 0.08}s`;
+                const text = isEnglish ? item.descEn : item.desc;
                 workItem.innerHTML = `
-                    <img src="img/${item.src}" alt="${item.desc}">
+                    <img src="img/${item.src}" alt="${text}">
                     <div class="work-desc">
-                        <span>${item.desc}</span>
+                        <span>${text}</span>
                         <span class="category-tag">${item.category}</span>
                     </div>
                 `;
@@ -452,14 +453,26 @@
             });
         }
 
-        // 初始化渲染
+        // 语言切换
+        document.getElementById('langBtn').addEventListener('click', () => {
+            isEnglish = !isEnglish;
+            document.getElementById('langBtn').textContent = isEnglish ? '中文' : 'EN';
+            document.documentElement.lang = isEnglish ? 'en' : 'zh-CN';
+            
+            document.querySelectorAll('[data-zh][data-en]').forEach(el => {
+                el.textContent = isEnglish ? el.dataset.en : el.dataset.zh;
+            });
+            
+            renderWorks();
+        });
+
+        // 初始化
         renderWorks();
 
         // 过滤功能
-        const filterItems = document.querySelectorAll('.filter-item');
-        filterItems.forEach(item => {
+        document.querySelectorAll('.filter-item').forEach(item => {
             item.addEventListener('click', () => {
-                filterItems.forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.filter-item').forEach(btn => btn.classList.remove('active'));
                 item.classList.add('active');
                 currentFilter = item.dataset.filter;
                 renderWorks();
@@ -467,10 +480,9 @@
         });
 
         // 排序功能
-        const sortBtns = document.querySelectorAll('.sort-btn');
-        sortBtns.forEach(btn => {
+        document.querySelectorAll('.sort-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                sortBtns.forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentSort = btn.dataset.sort;
                 renderWorks();
@@ -496,42 +508,21 @@
         }
 
         closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', function(e){
-            if(e.target === modal) closeModal();
-        });
+        modal.addEventListener('click', e => e.target === modal && closeModal());
+        document.addEventListener('keydown', e => e.key === 'Escape' && closeModal());
 
-        document.addEventListener('keydown', (e) => {
-            if(e.key === 'Escape' && modal.classList.contains('active')){
-                closeModal();
-            }
-        });
-
-        // 导航栏滚动效果
+        // 导航栏滚动
         const mainNav = document.getElementById('mainNav');
         window.addEventListener('scroll', () => {
-            if(window.scrollY > 50){
-                mainNav.classList.add('scroll');
-            } else {
-                mainNav.classList.remove('scroll');
-            }
+            mainNav.classList.toggle('scroll', window.scrollY > 50);
         });
 
         // 回到顶部
         const backToTop = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
-            if(window.scrollY > 300){
-                backToTop.classList.add('active');
-            } else {
-                backToTop.classList.remove('active');
-            }
+            backToTop.classList.toggle('active', window.scrollY > 300);
         });
-
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+        backToTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
     </script>
 </body>
 </html>
