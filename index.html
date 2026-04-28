@@ -2,9 +2,15 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人摄影作品集 | 首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>悉尼·境界 | 光影记录者</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --bg-main: #0d0d0f;
             --bg-card: #18181c;
@@ -18,27 +24,21 @@
             --transition-base: 0.3s ease;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', '思源黑体', sans-serif;
-            scroll-behavior: smooth;
-        }
-
         body {
             background-color: var(--bg-main);
             color: var(--color-text);
+            font-family: 'Inter', '思源黑体', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             padding-top: 70px;
+            scroll-behavior: smooth;
         }
 
-        /* 导航栏优化 */
+        /* 导航栏 */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.2rem 5%;
+            padding: 1rem 5%;
             background: var(--bg-nav);
             backdrop-filter: blur(10px);
             display: flex;
@@ -50,22 +50,29 @@
         }
 
         nav.scroll {
-            padding: 0.8rem 5%;
+            padding: 0.7rem 5%;
             background: rgba(16, 16, 20, 0.95);
         }
 
         .logo {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             letter-spacing: 2px;
             color: #ffffff;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         .nav-menu a {
-            margin-left: 2rem;
+            margin-left: 1rem;
             text-decoration: none;
             color: #b8b8b8;
             font-weight: 400;
+            font-size: 0.85rem;
             transition: var(--transition-base);
             position: relative;
         }
@@ -94,208 +101,245 @@
             width: 100%;
         }
 
-        /* 英雄区 */
-        .hero {
-            max-width: 1200px;
-            margin: 60px auto 60px;
-            padding: 0 5%;
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .avatar {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            border: 2px solid var(--color-border);
-            object-fit: cover;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            cursor: pointer;
-            transition: var(--transition-base);
-        }
-
-        .avatar:hover {
-            transform: scale(1.05);
-        }
-
-        .intro-card {
-            flex: 1;
-            min-width: 300px;
+        #langBtn {
+            padding: 4px 10px;
             background: var(--bg-card);
-            padding: 28px;
-            border-radius: 16px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-        }
-
-        .intro-card h2 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            font-weight: 500;
-            color: #fff;
-        }
-
-        .intro-card .tag {
-            display: inline-block;
-            padding: 4px 12px;
-            background: #25252b;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin: 4px 6px 4px 0;
-            color: var(--color-accent);
-        }
-
-        /* 过滤栏 */
-        .filter {
-            max-width: 1200px;
-            margin: 0 auto 40px;
-            padding: 0 5%;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .filter-item {
-            padding: 8px 20px;
-            background: var(--bg-card);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: var(--transition-base);
             border: 1px solid var(--color-border);
-            color: #ccc;
+            border-radius: 4px;
+            color: var(--color-text);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition-base);
         }
 
-        .filter-item.active,
-        .filter-item:hover {
+        #langBtn:hover {
             background: var(--color-accent);
             color: #000;
-            border-color: var(--color-accent);
         }
 
-        /* 作品容器 */
-        .work-container {
-            max-width: 1200px;
-            margin: 0 auto 80px;
+        /* 主容器 + 紧凑间距 */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto 50px;
             padding: 0 5%;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
         }
 
-        .work-item {
-            border-radius: 12px;
-            overflow: hidden;
+        /* 个人信息卡片（整合about个人资料） */
+        .profile-card {
             background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
             box-shadow: var(--shadow-card);
-            transition: 0.4s ease;
-            cursor: pointer;
-            opacity: 0;
-            animation: fadeIn 0.5s forwards;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            transition: 0.2s;
         }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .work-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.45);
-        }
-
-        .work-item img {
-            width: 100%;
-            height: 360px;
+        .profile-avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
             object-fit: cover;
-            display: block;
-            transition: var(--transition-base);
-            loading: lazy; /* 懒加载 */
+            border: 2px solid var(--color-border);
+            flex-shrink: 0;
         }
 
-        .work-item:hover img {
-            transform: scale(1.03);
+        .profile-info {
+            flex: 1;
+            min-width: 220px;
         }
 
-        .work-desc {
-            padding: 16px;
-            font-size: 0.9rem;
+        .profile-info h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #fff;
+            letter-spacing: -0.2px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px 16px;
+            margin-top: 14px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .info-label {
+            color: var(--color-accent);
+            font-weight: 500;
+            min-width: 44px;
+        }
+
+        .info-value {
             color: var(--color-subtext);
         }
 
-        /* 交流区 */
-        .comment-area {
-            max-width: 1200px;
-            margin: 0 auto 80px;
-            padding: 0 5%;
+        .profile-bio {
+            margin-top: 14px;
+            font-size: 0.8rem;
+            color: var(--color-subtext);
+            border-top: 1px solid var(--color-border);
+            padding-top: 12px;
+            font-style: italic;
         }
 
-        .section-title {
-            font-size: 1rem;
-            margin-bottom: 16px;
-            padding-bottom: 6px;
-            border-bottom: 1px solid var(--color-border);
+        /* 快速入口双按钮 (紧凑) */
+        .quick-links {
+            display: flex;
+            gap: 14px;
+            margin: -8px 0 28px 0;
+            justify-content: flex-start;
+        }
+
+        .btn-sm {
+            padding: 6px 18px;
+            background: var(--color-accent);
+            color: #000;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: 0.2s;
+            display: inline-block;
+        }
+
+        .btn-sm:hover {
+            background: #aac7db;
+            transform: translateY(-1px);
+        }
+
+        /* 通用卡片样式 */
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-card);
+            transition: 0.2s;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 18px;
             color: #fff;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--color-border);
+            font-weight: 500;
+            letter-spacing: -0.2px;
+        }
+
+        .philosophy-text p {
+            color: var(--color-subtext);
+            margin-bottom: 14px;
+            font-size: 0.85rem;
+            line-height: 1.65;
+            text-indent: 1.5em;
+        }
+
+        /* 器材网格 */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 16px;
+        }
+
+        .equip-item {
+            background: #1f1f25;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border-left: 3px solid var(--color-accent);
+        }
+
+        .equip-item h4 {
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .equip-item p {
+            color: var(--color-subtext);
+            font-size: 0.8rem;
+        }
+
+        /* 经历时间线 */
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 4px;
+            bottom: 6px;
+            width: 2px;
+            background: var(--color-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            border: 2px solid var(--bg-card);
+        }
+
+        .timeline-date {
+            font-size: 0.8rem;
+            color: var(--color-accent);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .timeline-content {
+            color: var(--color-subtext);
+            font-size: 0.85rem;
+            line-height: 1.5;
         }
 
         /* 页脚 */
         footer {
             text-align: center;
-            padding: 30px;
-            color: #666;
-            font-size: 0.9rem;
+            padding: 24px 20px;
+            color: #6a6a70;
+            font-size: 0.75rem;
             background: var(--bg-footer);
+            border-top: 1px solid var(--color-border);
         }
 
-        /* 图片模态框 */
-        .img-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.92);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            padding: 20px;
-        }
-
-        .img-modal.active {
-            display: flex;
-        }
-
-        .img-modal img {
-            max-width: 90%;
-            max-height: 90vh;
-            border-radius: 8px;
-            object-fit: contain;
-        }
-
-        .img-modal .close {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            color: #fff;
-            font-size: 36px;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: var(--transition-base);
-        }
-
-        .img-modal .close:hover {
-            opacity: 1;
-        }
-
-        /* 回到顶部按钮 */
+        /* 回到顶部 */
         .back-to-top {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 48px;
-            height: 48px;
+            bottom: 22px;
+            right: 22px;
+            width: 40px;
+            height: 40px;
             background: var(--color-accent);
             color: #000;
             border-radius: 50%;
@@ -307,7 +351,9 @@
             pointer-events: none;
             transition: var(--transition-base);
             z-index: 90;
-            font-size: 20px;
+            font-size: 18px;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         .back-to-top.active {
@@ -315,214 +361,251 @@
             pointer-events: all;
         }
 
-        /* 响应式优化 */
-        @media (max-width:768px) {
-            .nav-menu a {
-                margin-left: 1rem;
-                font-size: 0.9rem;
+        @media (max-width: 640px) {
+            body {
+                padding-top: 65px;
             }
-            .hero {
-                justify-content: center;
+            .profile-card {
+                padding: 18px 20px;
+                gap: 16px;
+                flex-direction: column;
                 text-align: center;
-                margin-top: 40px;
             }
-            .avatar {
-                width: 120px;
-                height: 120px;
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
             }
-            .work-item img {
-                height: 280px;
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
             }
-            .back-to-top {
-                width: 40px;
-                height: 40px;
-                bottom: 20px;
-                right: 20px;
+            .card {
+                padding: 20px;
             }
-            .img-modal .close {
-                top: 20px;
-                right: 20px;
-                font-size: 28px;
+            .timeline {
+                padding-left: 20px;
+            }
+            .timeline-item::before {
+                left: -24px;
+            }
+            .quick-links {
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 640px) and (max-width: 800px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav id="mainNav">
-        <div class="logo">LENS | 摄影</div>
+
+<nav id="mainNav">
+    <div class="logo" data-zh="LENS | 摄影" data-en="LENS | Photography">LENS | 摄影</div>
+    <div class="nav-right">
         <div class="nav-menu">
-            <a href="index.html" class="active">首页</a>
-            <a href="works.html">作品</a>
-            <a href="about.html">关于我</a>
-            <a href="community.html">摄友交流</a>
+            <a href="index.html" class="active" data-zh="首页" data-en="Home">首页</a>
+            <a href="works.html" data-zh="作品" data-en="Works">作品</a>
+            <a href="community.html" data-zh="摄友交流" data-en="Community">摄友交流</a>
         </div>
-    </nav>
+        <button id="langBtn">EN</button>
+    </div>
+</nav>
 
-    <!-- 英雄区 -->
-    <div class="hero">
-        <img src="img/avatar.jpg" alt="头像" class="avatar">
-        <div class="intro-card">
-            <h2>悉尼|境界</h2>
-            <p>专注风光 / 街拍 / 人像纪实摄影<br>
-            00后独立摄影老炮（超10年摄龄）。</p>
-            <p>热爱自然光与城市烟火，用镜头定格每一个温柔瞬间。</p>
-            <div style="margin:12px 0;">
-                <span class="tag">#风光摄影</span>
-                <span class="tag">#纪实</span>
-                <span class="tag">#城市街拍</span>
+<main class="main-container">
+    <!-- 个人信息卡片：整合了头像、详细资料、摄影理念概括 -->
+    <div class="profile-card">
+        <img src="img/avatar.jpg" alt="Sky Fan 头像" class="profile-avatar">
+        <div class="profile-info">
+            <h2 class="profile-name" data-zh="悉尼 | 境界" data-en="Sydney | Jingjie">悉尼 | 境界</h2>
+            <div class="info-grid">
+                <div class="info-item"><span class="info-label" data-zh="昵称" data-en="Nick">昵称</span><span class="info-value">Sky Fan</span></div>
+                <div class="info-item"><span class="info-label" data-zh="定位" data-en="Based">定位</span><span class="info-value" data-zh="悉尼 / 中国上海" data-en="Sydney / Shanghai">悉尼 / 中国上海</span></div>
+                <div class="info-item"><span class="info-label" data-zh="摄龄" data-en="Years">摄龄</span><span class="info-value">10+ 年</span></div>
+                <div class="info-item"><span class="info-label" data-zh="擅长" data-en="Skills">擅长</span><span class="info-value" data-zh="风光摄影、街拍、人像纪实" data-en="Landscape, Street, Portrait">风光摄影、街拍、人像纪实</span></div>
+                <div class="info-item"><span class="info-label" data-zh="邮箱" data-en="Email">邮箱</span><span class="info-value">2891413723@qq.com</span></div>
+                <div class="info-item"><span class="info-label" data-zh="理念" data-en="Concept">理念</span><span class="info-value" data-zh="以光影为诗，记录世间美好" data-en="Poetry of Light, Beauty of Life">以光影为诗，记录世间美好</span></div>
             </div>
-            <p style="font-size:0.9rem;color:#aaa;">📩 交流邮箱：2891413723@qq.com<br>
-            欢迎同好互相交流、学习进步</p>
+            <div class="profile-bio" data-zh="专注自然光摄影，用镜头记录世间温柔与美好。" data-en="Focus on natural light photography, capturing warmth and beauty with the lens.">
+                专注自然光摄影，用镜头记录世间温柔与美好。
+            </div>
         </div>
     </div>
 
-    <!-- 过滤栏 -->
-    <div class="filter" id="filterBox">
-        <div class="filter-item active" data-filter="all">全部作品</div>
-        <div class="filter-item" data-filter="风光">风光摄影</div>
-        <div class="filter-item" data-filter="人像">人像写真</div>
-        <div class="filter-item" data-filter="街拍">城市街拍</div>
-        <div class="filter-item" data-filter="纪实">新闻纪实</div>
+    <!-- 快捷入口 保留作品/交流入口 -->
+    <div class="quick-links">
+        <a href="works.html" class="btn-sm" data-zh="📷 浏览作品" data-en="📷 View Works">📷 浏览作品</a>
+        <a href="community.html" class="btn-sm" data-zh="💬 摄友交流" data-en="💬 Community">💬 摄友交流</a>
     </div>
 
-    <!-- 作品容器 -->
-    <div class="work-container" id="workBox"></div>
-
-    <!-- 交流区入口 -->
-    <div class="comment-area">
-        <h3 class="section-title">摄友交流区</h3>
-        <p style="color:#aaa;margin-bottom:20px;">欢迎留言交流拍摄心得、器材、构图与光影技巧，一起进步。</p>
-        <a href="community.html" style="display:inline-block;padding:10px 24px;background:var(--color-accent);color:#000;border-radius:8px;text-decoration:none;transition:var(--transition-base);">
-            进入交流区
-        </a>
+    <!-- 摄影理念卡片 (原 about 内容) -->
+    <div class="card">
+        <h3 data-zh="📸 摄影理念" data-en="📸 Philosophy">📸 摄影理念</h3>
+        <div class="philosophy-text">
+            <p data-zh="我始终相信，最好的照片永远藏在真实的瞬间里。比起刻意的摆拍，我更偏爱捕捉那些未经雕琢的、自然流淌的美好——山野间的一缕晨光，城市街头的人间烟火，陌生人眼中一闪而过的情绪，这些都是我镜头下最珍贵的素材。"
+               data-en="I always believe the best photos hide in genuine moments. Rather than staged shots, I prefer capturing unpolished, natural beauty — a ray of morning light in the mountains, the vibrant street life, a fleeting emotion in a stranger's eyes.">
+                我始终相信，最好的照片永远藏在真实的瞬间里。比起刻意的摆拍，我更偏爱捕捉那些未经雕琢的、自然流淌的美好——山野间的一缕晨光，城市街头的人间烟火，陌生人眼中一闪而过的情绪，这些都是我镜头下最珍贵的素材。
+            </p>
+            <p data-zh="摄影于我而言，不是简单的记录，而是与世界对话的方式。每一次按下快门，都是在与当下的光影、人物、环境产生联结，试图定格那些稍纵即逝的「氛围感」。我偏爱自然光，因为它最真实；我专注纪实，因为生活本身就是最好的剧本。"
+               data-en="Photography for me is not just documentation, but a way to converse with the world. Every click connects me with light, people, and environment — capturing fleeting atmospheres. I prefer natural light for its truth; I focus on documentary because life writes the best script.">
+                摄影于我而言，不是简单的记录，而是与世界对话的方式。每一次按下快门，都是在与当下的光影、人物、环境产生联结，试图定格那些稍纵即逝的「氛围感」。我偏爱自然光，因为它最真实；我专注纪实，因为生活本身就是最好的剧本。
+            </p>
+            <p data-zh="我不追求极致的器材参数，也不执着于完美的构图法则。对我来说，一张好照片的核心是「有温度」——能让观者感受到按下快门那一刻，摄影师眼中的世界是什么样子。这也是我一直坚持的创作初心：用镜头看见温柔，记录真实。"
+               data-en="I don’t chase ultimate gear specs nor rigid composition rules. For me, a great photo has 'warmth' — letting viewers feel what the photographer saw at that moment. That's my creative初心: see tenderness, document truth.">
+                我不追求极致的器材参数，也不执着于完美的构图法则。对我来说，一张好照片的核心是「有温度」——能让观者感受到按下快门那一刻，摄影师眼中的世界是什么样子。这也是我一直坚持的创作初心：用镜头看见温柔，记录真实。
+            </p>
+        </div>
     </div>
 
-    <!-- 页脚 -->
-    <footer>
-        <p>© 2026 Sky Fan | 以光影为诗，记录世间美好</p>
-    </footer>
-
-    <!-- 图片预览模态框 -->
-    <div class="img-modal" id="imgModal">
-        <span class="close" id="closeBtn">×</span>
-        <img src="" alt="大图预览" id="modalImg">
+    <!-- 常用器材卡片 -->
+    <div class="card">
+        <h3 data-zh="⚙️ 常用器材" data-en="⚙️ Gear">⚙️ 常用器材</h3>
+        <div class="equipment-grid">
+            <div class="equip-item"><h4 data-zh="主力相机" data-en="Main Camera">主力相机</h4><p>索尼 A7M4（全画幅微单）</p></div>
+            <div class="equip-item"><h4 data-zh="风光镜头" data-en="Landscape Lens">风光镜头</h4><p>索尼 16-35mm F2.8 GM</p></div>
+            <div class="equip-item"><h4 data-zh="人像镜头" data-en="Portrait Lens">人像镜头</h4><p>索尼 85mm F1.4 GM</p></div>
+            <div class="equip-item"><h4 data-zh="街拍镜头" data-en="Street Lens">街拍镜头</h4><p>索尼 35mm F1.8</p></div>
+            <div class="equip-item"><h4 data-zh="三脚架" data-en="Tripod">三脚架</h4><p>曼富图 Befree Advanced</p></div>
+            <div class="equip-item"><h4 data-zh="后期工具" data-en="Post-processing">后期工具</h4><p>Lightroom / Photoshop / Capture One</p></div>
+        </div>
     </div>
 
-    <!-- 回到顶部按钮 -->
-    <div class="back-to-top" id="backToTop">↑</div>
+    <!-- 摄影经历 (时间线) -->
+    <div class="card">
+        <h3 data-zh="📅 摄影经历" data-en="📅 Journey">📅 摄影经历</h3>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2014 - 2016</div>
+                <div class="timeline-content" data-zh="接触摄影，从入门级单反开始，自学构图与光影基础，主要拍摄家庭日常与身边风景。"
+                     data-en="Started photography with entry-level DSLR, self-taught composition and lighting basics, mainly captured family moments and local scenery.">
+                     接触摄影，从入门级单反开始，自学构图与光影基础，主要拍摄家庭日常与身边风景。
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2017 - 2019</div>
+                <div class="timeline-content" data-zh="专注风光摄影，走遍国内多个城市与自然景区，积累大量风光作品，开始形成个人风格。"
+                     data-en="Focused on landscape photography, traveled to many cities and natural reserves, built a solid portfolio and developed a personal style.">
+                     专注风光摄影，走遍国内多个城市与自然景区，积累大量风光作品，开始形成个人风格。
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2020 - 2022</div>
+                <div class="timeline-content" data-zh="移居悉尼，转向城市街拍与人文纪实，关注不同文化背景下的城市生活与人物状态。"
+                     data-en="Moved to Sydney, shifted to street photography and documentary, focusing on urban life and human stories across cultures.">
+                     移居悉尼，转向城市街拍与人文纪实，关注不同文化背景下的城市生活与人物状态。
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2023 - 至今</div>
+                <div class="timeline-content" data-zh="融合风光与纪实风格，专注自然光人像创作，举办小型个人摄影展，与更多摄影爱好者交流学习。"
+                     data-en="Blend landscape & documentary, focus on natural light portraits, held small solo exhibitions, and engaged with photography community.">
+                     融合风光与纪实风格，专注自然光人像创作，举办小型个人摄影展，与更多摄影爱好者交流学习。
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
-    <script>
-        // 作品数据（含分类）
-        const workData = [
-            { src: "p0001.jpg", desc: "山野日落 | 自然光影", category: "风光" },
-            { src: "p0002.jpg", desc: "城市暮色 | 街头纪实", category: "街拍" },
-            { src: "p0003.jpg", desc: "人像自然光创作", category: "人像" },
-            { src: "p0004.jpg", desc: "海边极简风光", category: "风光" },
-            { src: "p0005.jpg", desc: "山林雾气纪实", category: "纪实" },
-            { src: "p0006.jpg", desc: "建筑极简美学", category: "街拍" },
-            { src: "p0007.jpg", desc: "晚风与旷野", category: "风光" },
-            { src: "p0008.jpg", desc: "极简美学", category: "人像" },
-            { src: "p0009.jpg", desc: "极简美学", category: "风光" },
-            { src: "p0010.jpg", desc: "极简美学", category: "街拍" },
-            { src: "p0011.jpg", desc: "极简美学", category: "纪实" },
-            { src: "p0012.jpg", desc: "夜色街景", category: "街拍" }
-        ];
+<footer>
+    <p data-zh="© 2026 Sky Fan | 以光影为诗，记录世间美好" data-en="© 2026 Sky Fan | Capturing Beauty with Light">© 2026 Sky Fan | 以光影为诗，记录世间美好</p>
+</footer>
 
-        // 初始化作品列表
-        const workBox = document.getElementById('workBox');
-        function renderWorks(filter = 'all') {
-            workBox.innerHTML = '';
-            const filteredWorks = filter === 'all' 
-                ? workData 
-                : workData.filter(item => item.category === filter);
-            
-            filteredWorks.forEach((item, index) => {
-                const workItem = document.createElement('div');
-                workItem.className = "work-item";
-                workItem.style.animationDelay = `${index * 0.1}s`;
-                workItem.innerHTML = `
-                    <img src="img/${item.src}" alt="${item.desc}">
-                    <div class="work-desc">${item.desc}</div>
-                `;
-                workBox.appendChild(workItem);
-            });
-        }
+<div class="back-to-top" id="backToTop">↑</div>
 
-        // 初始化渲染
-        renderWorks();
+<script>
+    // ----- 语言切换核心 (支持动态双语) -----
+    let isEnglish = false;
 
-        // 过滤功能
-        const filterItems = document.querySelectorAll('.filter-item');
-        filterItems.forEach(item => {
-            item.addEventListener('click', () => {
-                // 移除所有active
-                filterItems.forEach(btn => btn.classList.remove('active'));
-                // 添加当前active
-                item.classList.add('active');
-                // 渲染过滤后的作品
-                renderWorks(item.dataset.filter);
-            });
-        });
-
-        // 大图预览
-        const modal = document.getElementById('imgModal');
-        const modalImg = document.getElementById('modalImg');
-        const closeBtn = document.getElementById('closeBtn');
-
-        // 点击图片预览
-        document.addEventListener('click', function(e){
-            if(e.target.tagName === 'IMG' && e.target.closest('.work-item')){
-                modalImg.src = e.target.src;
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
-
-        // 关闭模态框
-        function closeModal(){
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', function(e){
-            if(e.target === modal) closeModal();
-        });
-
-        // ESC键关闭模态框
-        document.addEventListener('keydown', (e) => {
-            if(e.key === 'Escape' && modal.classList.contains('active')){
-                closeModal();
-            }
-        });
-
-        // 导航栏滚动效果
-        const mainNav = document.getElementById('mainNav');
-        window.addEventListener('scroll', () => {
-            if(window.scrollY > 50){
-                mainNav.classList.add('scroll');
+    // 切换内置双语文本函数
+    function updatePageLanguage() {
+        // 所有带 data-zh 和 data-en 属性的元素
+        const bilingualElements = document.querySelectorAll('[data-zh][data-en]');
+        bilingualElements.forEach(el => {
+            const textToShow = isEnglish ? el.getAttribute('data-en') : el.getAttribute('data-zh');
+            if (textToShow !== null && el.children.length === 0) {
+                // 仅纯文本元素替换, 避免干扰内部子结构
+                el.innerText = textToShow;
+            } else if (textToShow !== null && el.childNodes.length === 0 || el.childNodes.length === 1 && el.childNodes[0].nodeType === Node.TEXT_NODE) {
+                el.innerText = textToShow;
             } else {
-                mainNav.classList.remove('scroll');
+                // 若包含其他节点，但仍旧想改文本内容（如h4可能有嵌套但就纯文本，稳妥下仍更新innerText）
+                // 但为了防止破坏结构（器材卡h4等只有文本），直接用innerText即可
+                if (el.tagName === 'H4' || el.tagName === 'H3' || el.tagName === 'P' || el.classList?.contains('timeline-content') || el.classList?.contains('profile-bio') || el.classList?.contains('btn-sm')) {
+                    el.innerText = textToShow;
+                }
             }
         });
-
-        // 回到顶部
-        const backToTop = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if(window.scrollY > 300){
-                backToTop.classList.add('active');
-            } else {
-                backToTop.classList.remove('active');
+        // 单独处理器材标题 (它们也有data-zh/en 但上面已经通用)
+        // 修正一些已经明确文本的元素：info-value中部分需要双语显示“定位”“擅长”等
+        const extraBilingual = document.querySelectorAll('.info-value[data-zh][data-en], .profile-bio[data-zh][data-en], .timeline-content[data-zh][data-en]');
+        extraBilingual.forEach(el => {
+            if (el.getAttribute('data-zh') && el.getAttribute('data-en')) {
+                el.innerText = isEnglish ? el.getAttribute('data-en') : el.getAttribute('data-zh');
             }
         });
-
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+        // 单独调整人像/风光等文字因为有data属性的info-value需要强制更新
+        document.querySelectorAll('.info-item .info-value').forEach(el => {
+            if (el.hasAttribute('data-zh') && el.hasAttribute('data-en')) {
+                el.innerText = isEnglish ? el.getAttribute('data-en') : el.getAttribute('data-zh');
+            }
         });
-    </script>
+        // 确保器材列表里标题和内容都国际化（标题有data自动完成，内容均为固定型号但某些型号不需要翻译）
+        // 摄影理念段落p及时间线内容都已自动触发,但若仍有遗漏：
+        document.querySelectorAll('.philosophy-text p').forEach(p => {
+            if (p.hasAttribute('data-zh') && p.hasAttribute('data-en')) {
+                p.innerText = isEnglish ? p.getAttribute('data-en') : p.getAttribute('data-zh');
+            }
+        });
+        // 导航栏logo&页脚语言已经通过通用选择器完美支持, 按钮文字也已刷新
+        const langBtn = document.getElementById('langBtn');
+        if (langBtn) langBtn.innerText = isEnglish ? '中文' : 'EN';
+    }
+
+    // 监听语言按钮
+    const langBtn = document.getElementById('langBtn');
+    if (langBtn) {
+        langBtn.addEventListener('click', () => {
+            isEnglish = !isEnglish;
+            document.documentElement.lang = isEnglish ? 'en' : 'zh-CN';
+            updatePageLanguage();
+        });
+    }
+
+    // 初始渲染语言状态中文
+    updatePageLanguage();
+
+    // 导航栏滚动效果
+    const mainNav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            mainNav.classList.add('scroll');
+        } else {
+            mainNav.classList.remove('scroll');
+        }
+    });
+
+    // 回到顶部按钮
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTop.classList.add('active');
+        } else {
+            backToTop.classList.remove('active');
+        }
+    });
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // 修正一些因为动态替换可能缺失的初始文本内容确保完全匹配英文或中文（兼容）
+    // 额外确保页面图片不存在 loading 问题
+    // 确保任何额外加载内容稳定
+    window.addEventListener('load', () => {
+        // 强制让所有data-zh/en元素再同步一次，避免初始不对劲（如浏览器快速解析）
+        updatePageLanguage();
+    });
+</script>
 </body>
 </html>
